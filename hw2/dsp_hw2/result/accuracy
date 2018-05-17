@@ -1,8 +1,8 @@
 ====================== HTK Results Analysis =======================
-  Date: Thu May 17 13:27:58 2018
+  Date: Thu May 17 13:39:01 2018
   Ref : labels/answer.mlf
   Rec : result/result.mlf
 ------------------------ Overall Results --------------------------
-SENT: %Correct=90.42 [H=434, S=46, N=480]
-WORD: %Corr=97.70, Acc=97.18 [H=1698, D=27, S=13, I=9, N=1738]
+SENT: %Correct=89.79 [H=431, S=49, N=480]
+WORD: %Corr=97.58, Acc=96.89 [H=1696, D=28, S=14, I=12, N=1738]
 ===================================================================
