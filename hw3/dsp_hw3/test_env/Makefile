@@ -1,6 +1,6 @@
 # The following two variable will be commandline determined by TA
 # For testing, you could uncomment them.
-SRIPATH ?= /data/DSP_HW3/103_2/srilm-1.5.10
+SRIPATH ?= /nfs/undergrad/03/b03902008/dsp/hw3/dsp_hw3/srilm-1.5.10
 MACHINE_TYPE ?= i686-m64
 LM ?= bigram.lm
 
@@ -29,13 +29,8 @@ run:
 	    ./mydisambig -text testdata/$$i.txt -map $(TO) -lm $(LM) -order 2 > result2/$$i.txt; \
 	done;
 map:
-	@#TODO How to map?
 	@echo "Mapping!"
-	@#./mapping $(FROM) $(TO)
-	@#matlab mapping.m $(FROM) $(TO)
-	@#python3 mapping.py $(FROM) $(TO)
-	@#sh mapping.sh $(FROM) $(TO)
-	@#perl mapping.pl Big5-ZhuYin.map ZhuYin-Big5.map
+	@python3 generate_map.py $(FROM) $(TO)
 clean:
 	$(RM) $(OBJ) $(TARGET)
 
