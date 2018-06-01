@@ -5,7 +5,7 @@ MACHINE_TYPE ?= i686-m64
 LM ?= bigram.lm
 
 CXX = g++
-CXXFLAGS = -O3 -I$(SRIPATH)/include -w
+CXXFLAGS = -std=c++11 -O3 -I$(SRIPATH)/include -w
 vpath lib%.a $(SRIPATH)/lib/$(MACHINE_TYPE)
 
 TARGET = mydisambig
