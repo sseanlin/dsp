@@ -11,6 +11,7 @@ static char RcsId[] = "@(#)$Header: /home/srilm/devel/lm/src/RCS/matherr.c,v 1.4
 #include <math.h>
 #include <string.h>
 
+/*
 int
 #if defined(__MINGW32_VERSION) || defined(_MSC_VER)
 _matherr(struct _exception *x)
@@ -19,12 +20,13 @@ matherr(struct exception *x)
 #endif
 {
     if (x->type == SING && strcmp(x->name, "log10") == 0) {
-	/*
+	*
 	 * suppress warnings about log10(0.0)
-	 */
+	 
 	return 1;
     } else {
 	return 0;
     }
 }
+*/
 
