@@ -13,12 +13,12 @@ using namespace std;
 
 typedef vector<string> Path;
 
-double bigranProb(Ngram &lm, Vocab &vocab, string &now, string &last) {
+double bigramProb(Ngram &lm, Vocab &vocab, string &now, string &last) {
     VocabIndex i_now = vocab.getIndex(now.c_str());
     VocabIndex i_last = vocab.getIndex(last.c_str());
     
-    i_now = i_now == Vocab_None ? Vocab_Unknown : i_now;
-    i_last = i_last == Vocab_None ? Vocab_Unknown : i_last;
+    i_now = i_now == Vocab_None ? vocab.getIndex(Vocab_Unknown) : i_now;
+    i_last = i_last == Vocab_None ? vocab.getIndex(Vocab_Unknown) : i_last;
     
     VocabIndex context[] = {i_last, Vocab_None};
     return lm.wordProb(i_now, context);
@@ -61,7 +61,6 @@ int main(int argc, char *argv[]) {
     lmfile.close();
     
     ifstream text(text_filename);
-    string line;
     while(getline(text, line)) {
         vector<Path> last_paths;
         vector<double> last_probs;
@@ -82,25 +81,25 @@ int main(int argc, char *argv[]) {
                 double max_prob = numeric_limits<double>::lowest();
                 for(int j = 0; j < last_paths.size(); ++j) {
                     string &last = last_paths[j].back();
-                    double prob = last_prob[j] + bigramProb(lm, vocab, now, last);
+                    double prob = last_probs[j] + bigramProb(lm, vocab, now, last);
                     if(prob > max_prob) {
                         max_j = j;
                         max_prob = prob;
                     }
                 }
                 now_probs[i] = max_prob;
-                now_paths[i] = last_path[max_j];
+                now_paths[i] = last_paths[max_j];
                 now_paths[i].push_back(now);
             }
             last_paths = move(now_paths);
-            last_prob = move(now_prob);
+            last_probs = move(now_probs);
         }
         int max_i = 0;
         double max_prob = numeric_limits<double>::lowest();
         for(int i = 0; i < last_paths.size(); ++i) {
-            if(last_prob[i] > max_prob) {
+            if(last_probs[i] > max_prob) {
                 max_i = i;
-                max_prob = last_prob[i];
+                max_prob = last_probs[i];
             }
         }
         for(string character : last_paths[max_i]) {
